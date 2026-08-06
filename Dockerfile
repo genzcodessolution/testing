@@ -49,7 +49,7 @@ COPY src/payload/hphf-dev.json ./dist/payload/
 COPY *.js ./
 
 # Expose the port your application will run on
-EXPOSE 3000
+EXPOSE 3001
 
 # Command to start the server in production mode
 CMD ["npm", "run", "serve"]
