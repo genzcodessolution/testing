@@ -1,0 +1,29 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  dir: '.'
+  args: [
+    'build',
+    '-t',
+    'asia-south1-docker.pkg.dev/${PROJECT_ID}/websites/website-hphf',
+    '-f',
+    './Dockerfile',
+    '.'
+  ]
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+    'push',
+    'asia-south1-docker.pkg.dev/${PROJECT_ID}/websites/website-hphf'
+  ]
+
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: gcloud
+  args: [
+    'run',
+    'deploy',
+    'website-hphf',
+    '--region=asia-south1',
+    '--platform=managed',
+    '--image=asia-south1-docker.pkg.dev/${PROJECT_ID}/websites/website-hphf'
+  ]
+
+  timeout: 1800s  
